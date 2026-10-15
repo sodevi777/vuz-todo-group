@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Работы ВУЗ</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #6b7385;
+    --line: #e3e6ec; --accent: #2f6fed; --done: #1f9d55; --bar: #e8ebf1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151b; --card: #1b1f27; --text: #e6e9ef; --muted: #8b93a5;
+      --line: #2a303b; --accent: #6b9cff; --done: #3fcf7f; --bar: #2a303b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+  .bar { height: 8px; background: var(--bar); border-radius: 99px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; background: var(--done); transition: width .25s; }
+  .toolbar { display: flex; gap: 12px; align-items: center; margin: 16px 0 8px; flex-wrap: wrap; }
+  .toolbar label { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: 14px; cursor: pointer; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 14px; }
+  section header { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 8px; }
+  h2 { font-size: 17px; margin: 0; }
+  .count { color: var(--muted); font-size: 13px; white-space: nowrap; }
+  section .bar { height: 4px; margin-bottom: 6px; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--line); }
+  li:first-child { border-top: 0; }
+  input[type=checkbox] { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--done); cursor: pointer; }
+  li a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+  li a:hover { text-decoration: underline; }
+  li.done a, li.done span { color: var(--muted); text-decoration: line-through; }
+  body.hide-done li.done { display: none; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 24px; }
+  .err { color: #d64545; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Работы</h1>
+  <div class="sub" id="summary">Загрузка…</div>
+  <div class="bar"><i id="totalBar"></i></div>
+  <div class="toolbar">
+    <label><input type="checkbox" id="hideDone"> Скрыть выполненные</label>
+  </div>
+  <div id="list"></div>
+  <p class="note">Отметки хранятся только в этом браузере на этом устройстве — у каждого свои.</p>
+</main>
+<script>
+  const STORE = "vuz-todo-done";
+  const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+  let done = load(STORE, {});
+
+  // Ключ задания: id из ссылки (не меняется при переименовании), иначе сама ссылка или текст
+  function keyFor(text, url) {
+    if (url) {
+      const m = url.match(/[?&]id=(\d+)/);
+      return m ? "id:" + m[1] : "url:" + url;
+    }
+    return "text:" + text;
+  }
+
+  function parse(md) {
+    const out = { title: "", sections: [] };
+    let cur = null;
+    for (const raw of md.split(/\r?\n/)) {
+      const line = raw.trim();
+      let m;
+      if ((m = line.match(/^#\s+(.*)/))) { out.title = m[1]; continue; }
+      if ((m = line.match(/^##+\s+(.*)/))) { cur = { name: m[1], items: [] }; out.sections.push(cur); continue; }
+      if ((m = line.match(/^(?:\d+\.|[-*+])\s+(?:\[[ xX]\]\s*)?(.+)/))) {
+        if (!cur) { cur = { name: "Задания", items: [] }; out.sections.push(cur); }
+        const link = m[1].match(/^\[(.+?)\]\((.+?)\)/);
+        const text = link ? link[1] : m[1];
+        const url = link ? link[2] : null;
+        cur.items.push({ text, url, key: keyFor(text, url) });
+      }
+    }
+    return out;
+  }
+
+  function render(data) {
+    document.getElementById("title").textContent = data.title || "Работы";
+    document.title = data.title || "Работы";
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+    for (const sec of data.sections) {
+      const el = document.createElement("section");
+      el.innerHTML = '<header><h2></h2><span class="count"></span></header><div class="bar"><i></i></div><ul></ul>';
+      el.querySelector("h2").textContent = sec.name;
+      const ul = el.querySelector("ul");
+      for (const it of sec.items) {
+        const li = document.createElement("li");
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = !!done[it.key];
+        const label = document.createElement(it.url ? "a" : "span");
+        label.textContent = it.text;
+        if (it.url) { label.href = it.url; label.target = "_blank"; label.rel = "noopener"; }
+        cb.addEventListener("change", () => {
+          if (cb.checked) done[it.key] = 1; else delete done[it.key];
+          save(STORE, done);
+          update();
+        });
+        li.append(cb, label);
+        li.dataset.key = it.key;
+        ul.append(li);
+      }
+      list.append(el);
+    }
+    update();
+  }
+
+  function update() {
+    let all = 0, ok = 0;
+    for (const sec of document.querySelectorAll("section")) {
+      const lis = sec.querySelectorAll("li");
+      let s = 0;
+      lis.forEach(li => {
+        const d = !!done[li.dataset.key];
+        li.classList.toggle("done", d);
+        if (d) s++;
+      });
+      all += lis.length; ok += s;
+      sec.querySelector(".count").textContent = s + " / " + lis.length;
+      sec.querySelector(".bar > i").style.width = (lis.length ? s / lis.length * 100 : 0) + "%";
+    }
+    document.getElementById("summary").textContent = "Выполнено " + ok + " из " + all;
+    document.getElementById("totalBar").style.width = (all ? ok / all * 100 : 0) + "%";
+  }
+
+  const hide = document.getElementById("hideDone");
+  hide.checked = load("vuz-todo-hide", false);
+  document.body.classList.toggle("hide-done", hide.checked);
+  hide.addEventListener("change", () => {
+    document.body.classList.toggle("hide-done", hide.checked);
+    save("vuz-todo-hide", hide.checked);
+  });
+
+  fetch("README.md?t=" + Date.now(), { cache: "no-store" })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(md => render(parse(md)))
+    .catch(() => {
+      document.getElementById("summary").innerHTML = '<span class="err">Не удалось загрузить список. Обновите страницу.</span>';
+    });
+</script>
+</body>
+</html>
