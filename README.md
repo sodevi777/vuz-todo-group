@@ -13,6 +13,10 @@
 4. [ ] [ЛР_03. БД Студент - многотабличная](https://eiosiubip.ru/mod/assign/view.php?id=36812&forceview=1)
 5. [ ] [ЛР_04. БД Студент - обработка данных](https://eiosiubip.ru/mod/assign/view.php?id=36813&forceview=1)
 
+## Технологии и стандарты моделирования бизнес-процессов
+
+1. [ ] [ЛЕКЦИЯ 1. Введение в моделирование бизнес-процессов](https://eiosiubip.ru/mod/assign/view.php?id=23080)
+
 ## Программная инженерия
 
 1. [ ] [Лекция 1. Программная инженерия и жизненный цикл программной системы](https://eiosiubip.ru/mod/assign/view.php?id=40298)
