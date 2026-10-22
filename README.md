@@ -10,8 +10,10 @@
 
 1. [ ] [ЛЕКЦИЯ 1. Введение в моделирование бизнес-процессов](https://eiosiubip.ru/mod/assign/view.php?id=23080)
 2. [ ] [Лекция 2. Стандарты и нотации для моделирования бизнес-процессов](https://eiosiubip.ru/mod/assign/view.php?id=23081)
-3. [ ] [Практика 1. Постановка задачи и границы процесса](https://eiosiubip.ru/mod/assign/view.php?id=23243)
-4. [ ] [Тест. Технологии и стандарты моделирования бизнес-процессов](https://eiosiubip.ru/mod/quiz/view.php?id=34879)
+3. [ ] [Лекция 3. Стандарты моделирования бизнес-процессов: IDEF0](https://eiosiubip.ru/mod/assign/view.php?id=23422)
+4. [ ] [Практика 1. Постановка задачи и границы процесса](https://eiosiubip.ru/mod/assign/view.php?id=23243)
+5. [ ] [Практика 2. Выбор нотации для решения аналитической задачи](https://eiosiubip.ru/mod/assign/view.php?id=23347)
+6. [ ] [Тест. Технологии и стандарты моделирования бизнес-процессов](https://eiosiubip.ru/mod/quiz/view.php?id=34879)
 
 ## Программная инженерия (Мартынов Б.В.)
 
@@ -32,3 +34,12 @@
 3. [ ] [ЛР_02. БД Студент - создание БД](https://eiosiubip.ru/mod/assign/view.php?id=36811)
 4. [ ] [ЛР_03. БД Студент - многотабличная](https://eiosiubip.ru/mod/assign/view.php?id=36812&forceview=1)
 5. [ ] [ЛР_04. БД Студент - обработка данных](https://eiosiubip.ru/mod/assign/view.php?id=36813&forceview=1)
+
+## Деловая коммуникация и ведение деловых переговоров
+Для сдачи нужно
+1. [ ] [Знать содержание Лекции 1](https://eiosiubip.ru/mod/assign/view.php?id=39396)
+2. [ ] [Знать содержание Лекции 2](https://eiosiubip.ru/mod/assign/view.php?id=40802)
+3. [ ] [Закрыть практику 1](https://eiosiubip.ru/mod/workshop/view.php?id=23831)
+4. [ ] [Закрыть практику 3](https://eiosiubip.ru/mod/workshop/view.php?id=30508)
+5. [ ] [Тест](https://eiosiubip.ru/mod/quiz/view.php?id=9570)
+6. [ ] [Выбрать тему реферата и сделать его](https://eiosiubip.ru/mod/assign/view.php?id=18304)
