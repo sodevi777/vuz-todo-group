@@ -39,7 +39,11 @@
   li a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
   li a:hover { text-decoration: underline; }
   li.done a, li.done span { color: var(--muted); text-decoration: line-through; }
-  body.hide-done li.done { display: none; }
+  li.locked { opacity: .55; }
+  li.locked input[type=checkbox] { cursor: not-allowed; }
+  li.locked a, li.locked span { color: var(--muted); text-decoration: line-through; }
+  li.locked::after { content: "не нужно"; margin-left: auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
+  body.hide-done li.done, body.hide-done li.locked { display: none; }
   .note { color: var(--muted); font-size: 13px; margin-top: 24px; }
   .err { color: #d64545; }
 </style>
@@ -83,7 +87,8 @@
         const link = m[1].match(/^\[(.+?)\]\((.+?)\)/);
         const text = link ? link[1] : m[1];
         const url = link ? link[2] : null;
-        cur.items.push({ text, url, key: keyFor(text, url) });
+        // «Я выбрал …» — выбор альтернативы: если отмечен, остальные задания раздела не нужны
+        cur.items.push({ text, url, key: keyFor(text, url), choice: /^Я выбрал/i.test(text) });
       }
     }
     return out;
@@ -114,6 +119,7 @@
         });
         li.append(cb, label);
         li.dataset.key = it.key;
+        if (it.choice) li.dataset.choice = "1";
         ul.append(li);
       }
       list.append(el);
@@ -124,16 +130,23 @@
   function update() {
     let all = 0, ok = 0;
     for (const sec of document.querySelectorAll("section")) {
-      const lis = sec.querySelectorAll("li");
-      let s = 0;
+      const lis = [...sec.querySelectorAll("li")];
+      const chosen = lis.some(li => li.dataset.choice && done[li.dataset.key]);
+      let s = 0, n = 0;
       lis.forEach(li => {
-        const d = !!done[li.dataset.key];
+        const locked = chosen && !li.dataset.choice;
+        const d = !locked && !!done[li.dataset.key];
         li.classList.toggle("done", d);
+        li.classList.toggle("locked", locked);
+        const cb = li.querySelector("input");
+        cb.disabled = locked;
+        cb.checked = d;
+        if (!locked) n++;
         if (d) s++;
       });
-      all += lis.length; ok += s;
-      sec.querySelector(".count").textContent = s + " / " + lis.length;
-      sec.querySelector(".bar > i").style.width = (lis.length ? s / lis.length * 100 : 0) + "%";
+      all += n; ok += s;
+      sec.querySelector(".count").textContent = s + " / " + n;
+      sec.querySelector(".bar > i").style.width = (n ? s / n * 100 : 0) + "%";
     }
     document.getElementById("summary").textContent = "Выполнено " + ok + " из " + all;
     document.getElementById("totalBar").style.width = (all ? ok / all * 100 : 0) + "%";
