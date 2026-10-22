@@ -43,3 +43,10 @@
 4. [ ] [Закрыть практику 3](https://eiosiubip.ru/mod/workshop/view.php?id=30508)
 5. [ ] [Тест](https://eiosiubip.ru/mod/quiz/view.php?id=9570)
 6. [ ] [Выбрать тему реферата и сделать его](https://eiosiubip.ru/mod/assign/view.php?id=18304)
+
+## С++
+1. [ ] [Практическое. Тема 1. Программирование алгоритмов линейной структуры](https://eiosiubip.ru/mod/assign/view.php?id=23365)
+2. [ ] [Практическое. Тема 2. Программирование алгоритмов разветвляющейся структуры](https://eiosiubip.ru/mod/assign/view.php?id=23493)
+3. [ ] [Практическое. Тема 3. Программирование алгоритмов циклической структуры](https://eiosiubip.ru/mod/assign/view.php?id=23854)
+4. [ ] [Практическое. Тема 4. Составные типы данных в С++. Одномерные массивы](https://eiosiubip.ru/mod/assign/view.php?id=24336)
+5. [ ] [Я выбрал "для продвинутых"](https://eiosiubip.ru/mod/assign/view.php?id=39532)
