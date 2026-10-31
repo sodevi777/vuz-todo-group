@@ -51,6 +51,6 @@
 2. [ ] [Практическое. Тема 2. Программирование алгоритмов разветвляющейся структуры](https://eiosiubip.ru/mod/assign/view.php?id=23493)
 3. [ ] [Практическое. Тема 3. Программирование алгоритмов циклической структуры](https://eiosiubip.ru/mod/assign/view.php?id=23854)
 4. [ ] [Практическое. Тема 4. Составные типы данных в С++. Одномерные массивы](https://eiosiubip.ru/mod/assign/view.php?id=24336)
-5. [ ] [Практическое.Тема 5. Программирование двумерных массивов](https://eiosiubip.ru/mod/assign/view.php?id=25871)
+5. [ ] [Практическое. Тема 5. Программирование двумерных массивов](https://eiosiubip.ru/mod/assign/view.php?id=25871)
 6. [ ] [Я выбрал "для продвинутых"](https://eiosiubip.ru/mod/assign/view.php?id=39532)
 7. [ ] [Тест по дисциплине Язык программирования С++](https://eiosiubip.ru/mod/quiz/view.php?id=31214)
