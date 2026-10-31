@@ -34,6 +34,7 @@
 6. [ ] [Лаба 2.](https://eiosiubip.ru/mod/assign/view.php?id=40781)
 7. [ ] [Лаба 3.](https://eiosiubip.ru/mod/assign/view.php?id=40781)
 8. [ ] [Лаба 4.](https://eiosiubip.ru/mod/assign/view.php?id=40781)
+9. [ ] [Итоговый тест](https://eiosiubip.ru/mod/quiz/view.php?id=40910)
 
 ## Технологии рефакторинга (Мартынов Б.В.)
 
