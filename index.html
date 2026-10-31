@@ -65,6 +65,12 @@
   const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
   let done = load(STORE, {});
 
+  // Тесты сдают в любом случае: выбор альтернативы («Я выбрал …») их не закрывает.
+  // Определяем по ссылке на тест (mod/quiz) или по началу текста.
+  function alwaysNeeded(text, url) {
+    return /\/mod\/quiz\//i.test(url || "") || /^(?:Тест|Итоговый тест|Зачёт|Зачет|Экзамен)\b/i.test(text);
+  }
+
   // Ключ задания: id из ссылки (не меняется при переименовании), иначе сама ссылка или текст
   function keyFor(text, url) {
     if (url) {
@@ -88,7 +94,12 @@
         const text = link ? link[1] : m[1];
         const url = link ? link[2] : null;
         // «Я выбрал …» — выбор альтернативы: если отмечен, остальные задания раздела не нужны
-        cur.items.push({ text, url, key: keyFor(text, url), choice: /^Я выбрал/i.test(text) });
+        // (кроме тестов — они от выбора не зависят)
+        cur.items.push({
+          text, url, key: keyFor(text, url),
+          choice: /^Я выбрал/i.test(text),
+          keep: alwaysNeeded(text, url),
+        });
       }
     }
     return out;
@@ -120,6 +131,7 @@
         li.append(cb, label);
         li.dataset.key = it.key;
         if (it.choice) li.dataset.choice = "1";
+        if (it.keep) li.dataset.keep = "1";
         ul.append(li);
       }
       list.append(el);
@@ -134,7 +146,7 @@
       const chosen = lis.some(li => li.dataset.choice && done[li.dataset.key]);
       let s = 0, n = 0;
       lis.forEach(li => {
-        const locked = chosen && !li.dataset.choice;
+        const locked = chosen && !li.dataset.choice && !li.dataset.keep;
         const d = !locked && !!done[li.dataset.key];
         li.classList.toggle("done", d);
         li.classList.toggle("locked", locked);
