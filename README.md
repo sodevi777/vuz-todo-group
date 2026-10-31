@@ -30,12 +30,16 @@
 2. [ ] [Лекция 2. Инженерия требований и управление изменениями](https://eiosiubip.ru/mod/assign/view.php?id=40299)
 3. [ ] [Лекция 3. Архитектура цифрового продукта: приложения, данные, интеграции и искусственный интеллект](https://eiosiubip.ru/mod/assign/view.php?id=40470)
 4. [ ] [Лекция 4. Качество, поставка, сопровождение и эволюция программной системы](https://eiosiubip.ru/mod/assign/view.php?id=40599)
+5. [ ] [Лаба 1.](https://eiosiubip.ru/mod/assign/view.php?id=40781)
+6. [ ] [Лаба 2.](https://eiosiubip.ru/mod/assign/view.php?id=40781)
+7. [ ] [Лаба 3.](https://eiosiubip.ru/mod/assign/view.php?id=40781)
+8. [ ] [Лаба 4.](https://eiosiubip.ru/mod/assign/view.php?id=40781)
 
 ## Технологии рефакторинга (Мартынов Б.В.)
 
 1. [ ] [Тема 1. Введение в рефакторинг: поведение программы, качество и технический долг](https://eiosiubip.ru/mod/assign/view.php?id=30331)
-2. [ ] [Тема 2. Диагностика проблемного кода и тестирование перед рефакторингом](https://eiosiubip.ru/mod/assign/view.php?id=30332) 24.10 13:30
-3. [ ] [Тема 1. Диагностика существующего проекта и выбор приоритетов рефакторинга](https://eiosiubip.ru/mod/assign/view.php?id=30337) 28.10 15:10
+2. [ ] [Тема 2. Диагностика проблемного кода и тестирование перед рефакторингом](https://eiosiubip.ru/mod/assign/view.php?id=30332)
+3. [ ] [Тема 1. Диагностика существующего проекта и выбор приоритетов рефакторинга](https://eiosiubip.ru/mod/assign/view.php?id=30337)
 4. [ ] [Тема 2. Интеграция тестирования в процесс рефакторинга](https://eiosiubip.ru/mod/assign/view.php?id=30338) 
 5. [ ] [Тест. Технологии рефакторинга](https://eiosiubip.ru/mod/quiz/view.php?id=35201)
 
