@@ -43,6 +43,9 @@
   li.locked input[type=checkbox] { cursor: not-allowed; }
   li.locked a, li.locked span { color: var(--muted); text-decoration: line-through; }
   li.locked::after { content: "не нужно"; margin-left: auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
+  li.off { opacity: .55; }
+  li.off input[type=checkbox] { cursor: not-allowed; }
+  li.off::after { content: attr(data-note); margin-left: auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
   body.hide-done li.done, body.hide-done li.locked { display: none; }
   .note { color: var(--muted); font-size: 13px; margin-top: 24px; }
   .err { color: #d64545; }
@@ -61,6 +64,8 @@
 </main>
 <script>
   const STORE = "vuz-todo-done";
+  // Пока закрыто не больше стольких практических, выбор «для продвинутых» ещё доступен
+  const MAX_PRACTICALS = 2;
   const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
   const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
   let done = load(STORE, {});
@@ -144,16 +149,26 @@
     for (const sec of document.querySelectorAll("section")) {
       const lis = [...sec.querySelectorAll("li")];
       const chosen = lis.some(li => li.dataset.choice && done[li.dataset.key]);
+      // Сколько обычных заданий (практических) уже закрыто.
+      // Если выбор отмечен, они и так скрыты, поэтому счётчик обнуляется — иначе выбор нельзя было бы снять.
+      const closed = chosen ? 0 : lis.filter(li =>
+        !li.dataset.choice && !li.dataset.keep && done[li.dataset.key]).length;
       let s = 0, n = 0;
       lis.forEach(li => {
-        const locked = chosen && !li.dataset.choice && !li.dataset.keep;
-        const d = !locked && !!done[li.dataset.key];
+        const isChoice = !!li.dataset.choice;
+        const locked = chosen && !isChoice && !li.dataset.keep;
+        // Больше двух практических закрыто — выбирать «для продвинутых» уже нет смысла
+        const off = isChoice && !chosen && closed > MAX_PRACTICALS;
+        const d = !locked && !off && !!done[li.dataset.key];
         li.classList.toggle("done", d);
         li.classList.toggle("locked", locked);
+        li.classList.toggle("off", off);
+        if (off) li.dataset.note = "недоступно (практ.: " + closed + ")";
+        else delete li.dataset.note;
         const cb = li.querySelector("input");
-        cb.disabled = locked;
+        cb.disabled = locked || off;
         cb.checked = d;
-        if (!locked) n++;
+        if (!locked && !off) n++;
         if (d) s++;
       });
       all += n; ok += s;
