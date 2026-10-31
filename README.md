@@ -34,6 +34,8 @@
 3. [ ] [ЛР_02. БД Студент - создание БД](https://eiosiubip.ru/mod/assign/view.php?id=36811)
 4. [ ] [ЛР_03. БД Студент - многотабличная](https://eiosiubip.ru/mod/assign/view.php?id=36812&forceview=1)
 5. [ ] [ЛР_04. БД Студент - обработка данных](https://eiosiubip.ru/mod/assign/view.php?id=36813&forceview=1)
+6. [ ] [ЛР_05. БД КНИГИ - запросы](https://eiosiubip.ru/mod/assign/view.php?id=36814)
+7. [ ] [ЛР_6. БД Авто - импорт и экспорт таблиц](https://eiosiubip.ru/mod/assign/view.php?id=36815)
 
 ## Деловая коммуникация и ведение деловых переговоров
 Для сдачи нужно
